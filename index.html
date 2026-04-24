@@ -58,8 +58,10 @@
   <div id="start-screen">
   <div class="start-box">
     <h2>Welcome</h2>
-    <button onclick="playAsGuest()">Play as Guest</button>
+    <input type="email" id="email" placeholder="אימייל">
+    <input type="text" id="password" placeholder="סיסמה">
     <button onclick="login()">Login</button>
+    <button onclick="playAsGuest()">Play as Guest</button>
     <button onclick="register()">Register</button>
   </div>
 </div>
@@ -77,7 +79,14 @@ function playAsGuest() {
 }
 
 function login() {
-  alert("login coming soon");
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+  
+  if (email === "" || password === "") {
+    alert("תמלא אימייל וסיסמה");
+    return;
+  }
+
 }
 
 function register() {
