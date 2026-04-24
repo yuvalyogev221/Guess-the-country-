@@ -24,45 +24,81 @@
   margin: 10px 0;
 }
   
-  #start-screen {
+#start-screen {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.6); /* רקע כהה */
-  
+  background: linear-gradient(135deg, #d4f8c4, #a8e6cf);
+
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  z-index: 999; /* מעל הכל */
+
+  font-family: Arial, sans-serif;
 }
 
 .start-box {
   background: white;
-  padding: 30px;
-  border-radius: 12px;
+  padding: 30px 25px;
+  border-radius: 16px;
+  width: 85%;
+  max-width: 320px;
   text-align: center;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
+.start-box h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+/* שדות קלט */
+.start-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+
+  text-align: right; /* חשוב לעברית */
+}
+
+/* כפתורים */
 .start-box button {
-  display: block;
-  margin: 10px auto;
-  padding: 10px 20px;
-  font-size: 16px;
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+
+  background: #4CAF50;
+  color: white;
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.start-box button:hover {
+  background: #43a047;
+  transform: scale(1.03);
 }
   
 </style>
 <body>
-  <div id="start-screen">
+  <div id="start-screen" dir="rtl">
   <div class="start-box">
-    <h2>Welcome</h2>
     <input type="email" id="email" placeholder="אימייל">
     <input type="text" id="password" placeholder="סיסמה">
-    <button onclick="login()">Login</button>
-    <button onclick="playAsGuest()">Play as Guest</button>
-    <button onclick="register()">Register</button>
+    <button onclick="login()">התחברות</button>
+    <button onclick="playAsGuest()">שחק/י כאורח/ת</button>
+    <button onclick="register()">הירשם/י</button>
   </div>
 </div>
   
