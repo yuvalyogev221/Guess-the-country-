@@ -24,13 +24,66 @@
   margin: 10px 0;
 }
   
+  #start-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6); /* רקע כהה */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  z-index: 999; /* מעל הכל */
+}
+
+.start-box {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.start-box button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+  
 </style>
 <body>
+  <div id="start-screen">
+  <div class="start-box">
+    <h2>Welcome</h2>
+    <button onclick="playAsGuest()">Play as Guest</button>
+    <button onclick="login()">Login</button>
+    <button onclick="register()">Register</button>
+  </div>
+</div>
+  
   <header>
     <div class="container">
       <h1>GUESS THE COUNTRY</h1>
       <img src="wrld.png" class="earth">
     </div>
   </header>
+  
+  <script>
+function playAsGuest() {
+  document.getElementById("start-screen").style.display = "none";
+}
+
+function login() {
+  alert("login coming soon");
+}
+
+function register() {
+  alert("register coming soon");
+}
+</script>
+  
 </body>
 </html>
