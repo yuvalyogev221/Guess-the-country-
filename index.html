@@ -260,17 +260,17 @@ function register() {
         box.innerHTML = "";
         alert("בחרת: " + c);
       };
-      
-      input.addEventListener("keydown", function(e) {
+
+      box.appendChild(div);
+    });
+  });
+  
+  input.addEventListener("keydown", function(e) {
   if (e.key === "Enter") {
     let value = this.value;
     alert("בחרת: " + value);
   }
 });
-
-      box.appendChild(div);
-    });
-  });
 }
 
 
