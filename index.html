@@ -258,7 +258,15 @@ function register() {
       div.onclick = () => {
         input.value = c;
         box.innerHTML = "";
+        alert("בחרת: " + c);
       };
+      
+      input.addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+    let value = this.value;
+    alert("בחרת: " + value);
+  }
+});
 
       box.appendChild(div);
     });
