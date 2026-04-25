@@ -97,11 +97,28 @@
 <body>
   <div id="start-screen" dir="rtl">
   <div class="start-box">
-    <input type="email" id="email" placeholder="אימייל">
-    <input type="text" id="password" placeholder="סיסמה">
-    <button onclick="login()">התחברות</button>
-    <button onclick="playAsGuest()">שחק/י כאורח/ת</button>
-    <button onclick="register()">הירשם/י</button>
+
+    <!-- מסך התחברות -->
+    <div id="login-screen">
+      <input type="email" id="email" placeholder="אימייל">
+      <input type="password" id="password" placeholder="סיסמה">
+
+      <button onclick="login()">התחברות</button>
+      <button onclick="showRegister()">הירשם/י</button>
+      <button onclick="playAsGuest()">שחק/י כאורח/ת</button>
+    </div>
+
+    <!-- מסך הרשמה -->
+    <div id="register-screen" style="display: none;">
+      <h2>הרשמה</h2>
+      <input type="email" id="reg-email" placeholder="אימייל">
+      <input type="password" id="reg-password" placeholder="סיסמה">
+      <input type="password" id="reg-password2" placeholder="אימות סיסמה">
+
+      <button onclick="register()">צור חשבון</button>
+      <button onclick="showLogin()">חזרה להתחברות</button>
+    </div>
+
   </div>
 </div>
   
@@ -117,6 +134,16 @@ function playAsGuest() {
   document.getElementById("start-screen").style.display = "none";
 }
 
+function showRegister() {
+  document.getElementById("login-screen").style.display = "none";
+  document.getElementById("register-screen").style.display = "block";
+}
+
+function showLogin() {
+  document.getElementById("register-screen").style.display = "none";
+  document.getElementById("login-screen").style.display = "block";
+}
+
 function login() {
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
@@ -130,7 +157,22 @@ function login() {
 }
 
 function register() {
-  alert("register coming soon");
+  let email = document.getElementById("reg-email").value;
+  let pass1 = document.getElementById("reg-password").value;
+  let pass2 = document.getElementById("reg-password2").value;
+
+  if (email === "" || pass1 === "" || pass2 === "") {
+    alert("תמלא את כל השדות");
+    return;
+  }
+  
+  if (pass1 !== pass2) {
+    alert("הסיסמאות לא תואמות");
+    return;
+  }
+
+  alert("נרשמת בהצלחה 🎉");
+  document.getElementById("start-screen").style.display = "none";
 }
 </script>
   
