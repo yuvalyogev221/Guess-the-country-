@@ -127,6 +127,10 @@
       <h1>GUESS THE COUNTRY</h1>
       <img src="wrld.png" class="earth">
     </div>
+    
+    <div class="container" dir="rtl">
+      <h3 onclick="showRules()" style="cursor: pointer;">החוקים📖</h3>
+    </div>
   </header>
   
   <script>
@@ -171,9 +175,15 @@ function register() {
     return;
   }
 
+  //check if the acount is already in the DB if not put it in
+
   alert("נרשמת בהצלחה 🎉");
   document.getElementById("start-screen").style.display = "none";
 }
+
+  function showRules() {
+    alert("החוקים: ...");
+  }
 </script>
   
 </body>
