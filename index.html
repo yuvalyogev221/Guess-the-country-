@@ -93,6 +93,22 @@
   transform: scale(1.03);
 }
   
+  #guess {
+  width: 90%;
+  max-width: 400px;
+  padding: 15px;
+  font-size: 20px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  text-align: right;
+}
+
+/* ❗ מעלים את החץ בדפדפנים מסוימים */
+input::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+  
 </style>
 <body>
   <div id="start-screen" dir="rtl">
