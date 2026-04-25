@@ -92,26 +92,6 @@
   background: #43a047;
   transform: scale(1.03);
 }
-
-#guess {
-  width: 80%;
-  padding: 10px;
-  font-size: 18px;
-  text-align: right;
-}
-
-#keyboard button {
-  margin: 3px;
-  padding: 10px;
-  font-size: 16px;
-}
-
-#suggestions div {
-  background: white;
-  padding: 5px;
-  margin: 2px;
-  cursor: pointer;
-}
   
 </style>
 <body>
@@ -151,11 +131,6 @@
     <div class="container" dir="rtl">
       <h3 onclick="showRules()" style="cursor: pointer;">החוקים📖</h3>
     </div>
-    
-    <input id="guess" placeholder="בחר מדינה" readonly>
-<div id="suggestions"></div>
-
-<div id="keyboard"></div>
   </header>
   
   <script>
@@ -209,72 +184,6 @@ function register() {
   function showRules() {
     alert("החוקים: ...");
   }
-  
-  const countries = [
-"ישראל","גרמניה","צרפת","ספרד","איטליה","פורטוגל","ברזיל","ארגנטינה","צ'ילה","מקסיקו",
-"ארצות הברית","קנדה","רוסיה","אוקראינה","פולין","הולנד","בלגיה","שוויץ","אוסטריה",
-"שבדיה","נורווגיה","פינלנד","דנמרק","איסלנד","יוון","טורקיה","מצרים","מרוקו","ניגריה",
-"קניה","דרום אפריקה","הודו","סין","יפן","דרום קוריאה","אוסטרליה","ניו זילנד",
-"סעודיה","איחוד האמירויות","איראן","עיראק","ירדן","לבנון","סוריה"
-];
-
-const letters = [
-"א","ב","ג","ד","ה","ו","ז","ח","ט",
-"י","כ","ל","מ","נ","ס","ע","פ","צ",
-"ק","ר","ש","ת"
-];
-
-let keyboard = document.getElementById("keyboard");
-
-letters.forEach(letter => {
-  let btn = document.createElement("button");
-  btn.innerText = letter;
-  btn.onclick = () => addLetter(letter);
-  keyboard.appendChild(btn);
-});
-
-// מחיקה
-let del = document.createElement("button");
-del.innerText = "⌫";
-del.onclick = deleteLetter;
-keyboard.appendChild(del);
-
-// ENTER
-let enter = document.createElement("button");
-enter.innerText = "ENTER";
-enter.onclick = submitGuess;
-keyboard.appendChild(enter);
-
-let current = "";
-
-function addLetter(letter) {
-  current += letter;
-  updateInput();
-  showSuggestions();
-}
-
-function deleteLetter() {
-  current = current.slice(0, -1);
-  updateInput();
-  showSuggestions();
-}
-
-function updateInput() {
-  document.getElementById("guess").value = current;
-}
-
-function submitGuess() {
-  if (countries.includes(current)) {
-    alert("ניחוש תקין: " + current);
-  } else {
-    alert("מדינה לא קיימת");
-  }
-
-  current = "";
-  updateInput();
-  document.getElementById("suggestions").innerHTML = "";
-}
-
 </script>
   
 </body>
