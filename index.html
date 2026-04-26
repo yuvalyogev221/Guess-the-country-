@@ -400,10 +400,13 @@ function setupAutocomplete() {
 
 function addGuessToTable(country) {
   if (currentRow > maxTries) return;
+  
+  //Send to python the country name and get back from the python list of the variables of the country and list of colours and True/False
 
   let table = document.getElementById("game-table");
   let row = table.rows[currentRow];
 
+  //here You beed to run on your list of variables of the country and get it into the row cells. 
   row.cells[0].innerText = country;
   row.cells[1].innerText = "מ";
   row.cells[2].innerText = "מ קמ״ר";
@@ -411,6 +414,7 @@ function addGuessToTable(country) {
   row.cells[4].innerText = "ס";
   row.cells[5].innerText = "UTC +n";
 
+  // here instead of paint the row cells only in gray, run on your list of colours and for each cell paint in the right collor. 
   for (let i = 0; i < row.cells.length; i++) {
     row.cells[i].style.background = "#ccc";
   }
@@ -418,6 +422,17 @@ function addGuessToTable(country) {
   currentRow++;
   
   guessedCountries.push(country);
+  
+  //here instead of end the game only on the ninth attempt check before if he won the game. 
+  //if (... is True) {
+    //let input = document.getElementById("guess");
+    //let box = document.getElementById("suggestions");
+
+    //input.remove();       // 🔥 מוחק את השדה
+    //box.innerHTML = "";   // מנקה הצעות
+
+    //alert("הצלחת !");
+    //}
   
   if (currentRow > maxTries) {
   let input = document.getElementById("guess");
