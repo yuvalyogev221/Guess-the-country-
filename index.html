@@ -124,14 +124,21 @@
   max-width: 700px;
   margin: 20px auto;
 
-  border-collapse: separate; /* 🔥 כדי ליצור רווחים */
-  border-spacing: 8px;       /* 🔥 רווח בין הריבועים */
+  border-collapse: separate;
+  border-spacing: 0 10px; /* רווח רק בין שורות */
 
   text-align: center;
   table-layout: fixed;
-  direction: rtl; /* 🔥 עברית מימין לשמאל */
+  direction: rtl;
 }
 
+/* 🔥 כל שורה = מלבן אחד */
+#game-table tr {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+}
+
+/* כותרות */
 #game-table th {
   background: #f9f9f9; /* off white */
   font-weight: bold;
@@ -140,31 +147,50 @@
   padding: 10px;
   height: 55px;
 
-  border-radius: 8px;
+  border: 1px solid black;
 }
 
-/* ❗ חשוב: לא חותכים כותרות */
-#game-table th {
-  white-space: normal; /* מאפשר ירידת שורה */
-  overflow: visible;
-  text-overflow: unset;
+/* 🔥 פינות מעוגלות רק לקצוות של השורה */
+#game-table tr th:first-child,
+#game-table tr td:first-child {
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
+#game-table tr th:last-child,
+#game-table tr td:last-child {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+/* תאים */
 #game-table td {
-  background: white;
-
+  background: transparent; /* 🔥 בלי רקע */
   padding: 10px;
   height: 55px;
 
-  border-radius: 8px;
-  font-size: 14px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
 
+  font-size: 14px;
   vertical-align: middle;
 
-  /* 🔥 כן חותכים טקסט בתאים */
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+/* קווים בין תאים */
+#game-table td + td {
+  border-right: 1px solid black;
+}
+
+/* 🔥 כותרות לא נחתכות + פונט קטן אוטומטית */
+#game-table th {
+  white-space: normal;
+  overflow: hidden;
+
+  font-size: clamp(10px, 2vw, 14px); /* 🔥 מקטין לבד אם צריך */
 }
   
 </style>
