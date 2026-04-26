@@ -324,6 +324,20 @@ function register() {
   let currentRow = 1; // מתחילים משורה 1 (כי 0 זה כותרות)
   const maxTries = 6;
   
+  input.addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+    let value = this.value;
+
+    if (countries.includes(value)) {
+      addGuessToTable(value);
+      input.value = "";
+      box.innerHTML = "";
+    } else {
+      alert("מדינה לא קיימת");
+    }
+  }
+});
+  
   function setupAutocomplete() {
   const countries = [
 "אפגניסטן","אלבניה","אלג'יריה","אנדורה","אנגולה","אנטיגואה וברבודה","ארגנטינה","ארמניה",
@@ -374,19 +388,6 @@ function register() {
   
 }
 
-input.addEventListener("keydown", function(e) {
-  if (e.key === "Enter") {
-    let value = this.value;
-
-    if (countries.includes(value)) {
-      addGuessToTable(value);
-      input.value = "";
-      box.innerHTML = "";
-    } else {
-      alert("מדינה לא קיימת");
-    }
-  }
-});
 
 function addGuessToTable(country) {
   if (currentRow > maxTries) return;
