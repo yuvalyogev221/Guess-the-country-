@@ -418,6 +418,17 @@ function addGuessToTable(country) {
   currentRow++;
   
   guessedCountries.push(country);
+  
+  if (currentRow > maxTries) {
+  let input = document.getElementById("guess");
+  let box = document.getElementById("suggestions");
+
+  input.remove();       // 🔥 מוחק את השדה
+  box.innerHTML = "";   // מנקה הצעות
+
+  alert("נגמרו הניסיונות!");
+}
+
 }
 
 
