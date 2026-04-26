@@ -125,22 +125,16 @@
   margin: 20px auto;
 
   border-collapse: separate;
-  border-spacing: 0 10px; /* רווח רק בין שורות */
+  border-spacing: 0 10px;
 
   text-align: center;
   table-layout: fixed;
   direction: rtl;
 }
 
-/* 🔥 כל שורה = מלבן אחד */
-#game-table tr {
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 12px;
-}
-
-/* כותרות */
+/* 🔥 כותרות */
 #game-table th {
-  background: #f9f9f9; /* off white */
+  background: #f9f9f9;
   font-weight: bold;
   color: black;
 
@@ -150,22 +144,19 @@
   border: 1px solid black;
 }
 
-/* 🔥 פינות מעוגלות רק לקצוות של השורה */
-#game-table tr th:first-child,
-#game-table tr td:first-child {
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
+/* 🔥 כותרות - כן יורדות שורה במקום להיחתך */
+#game-table th {
+  white-space: normal;
+  word-break: break-word;
 }
 
-#game-table tr th:last-child,
-#game-table tr td:last-child {
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
+/* 🔥 שורות רגילות */
+#game-table tbody tr {
+  background: transparent;
 }
 
-/* תאים */
+/* 🔥 תא ראשון ואחרון יוצרים את ה"מלבן" */
 #game-table td {
-  background: transparent; /* 🔥 בלי רקע */
   padding: 10px;
   height: 55px;
 
@@ -175,22 +166,30 @@
   font-size: 14px;
   vertical-align: middle;
 
+  background: transparent; /* ✅ שקוף באמת */
+
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
+/* צד ימין של השורה */
+#game-table td:first-child {
+  border-right: 1px solid black;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* צד שמאל של השורה */
+#game-table td:last-child {
+  border-left: 1px solid black;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
 /* קווים בין תאים */
 #game-table td + td {
   border-right: 1px solid black;
-}
-
-/* 🔥 כותרות לא נחתכות + פונט קטן אוטומטית */
-#game-table th {
-  white-space: normal;
-  overflow: hidden;
-
-  font-size: clamp(10px, 2vw, 14px); /* 🔥 מקטין לבד אם צריך */
 }
   
 </style>
