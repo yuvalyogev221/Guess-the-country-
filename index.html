@@ -123,32 +123,48 @@
   width: 95%;
   max-width: 700px;
   margin: 20px auto;
-  border-collapse: collapse;
+
+  border-collapse: separate; /* 🔥 כדי ליצור רווחים */
+  border-spacing: 8px;       /* 🔥 רווח בין הריבועים */
+
   text-align: center;
-  table-layout: fixed; /* 🔥 חשוב מאוד */
+  table-layout: fixed;
+  direction: rtl; /* 🔥 עברית מימין לשמאל */
 }
 
 #game-table th {
-  background: #f5f5f5;
+  background: #f9f9f9; /* off white */
   font-weight: bold;
-}
+  color: black;
 
-#game-table th,
-#game-table td {
-  border: 1px solid #ccc;
   padding: 10px;
   height: 55px;
 
-  /* 🔥 זה מה שמסדר את הבעיה שלך */
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  vertical-align: middle;
+  border-radius: 8px;
+}
+
+/* ❗ חשוב: לא חותכים כותרות */
+#game-table th {
+  white-space: normal; /* מאפשר ירידת שורה */
+  overflow: visible;
+  text-overflow: unset;
 }
 
 #game-table td {
+  background: white;
+
+  padding: 10px;
+  height: 55px;
+
+  border-radius: 8px;
   font-size: 14px;
-  border-radius: 6px;
+
+  vertical-align: middle;
+
+  /* 🔥 כן חותכים טקסט בתאים */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
   
 </style>
