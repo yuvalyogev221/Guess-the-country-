@@ -321,10 +321,10 @@ function register() {
     alert("החוקים: ...");
   }
   
+  let currentRow = 1; // מתחילים משורה 1 (כי 0 זה כותרות)
+  const maxTries = 6;
+  
   function setupAutocomplete() {
-    let currentRow = 1; // מתחילים משורה 1 (כי 0 זה כותרות)
-    const maxTries = 6;
-    
   const countries = [
 "אפגניסטן","אלבניה","אלג'יריה","אנדורה","אנגולה","אנטיגואה וברבודה","ארגנטינה","ארמניה",
 "אוסטרליה","אוסטריה","אזרבייג'ן","בהאמה","בחריין","בנגלדש","ברבדוס","בלארוס","בלגיה",
@@ -372,7 +372,9 @@ function register() {
     });
   });
   
-  input.addEventListener("keydown", function(e) {
+}
+
+input.addEventListener("keydown", function(e) {
   if (e.key === "Enter") {
     let value = this.value;
 
@@ -385,8 +387,6 @@ function register() {
     }
   }
 });
-
-}
 
 function addGuessToTable(country) {
   if (currentRow > maxTries) return;
