@@ -322,6 +322,9 @@ function register() {
   }
   
   function setupAutocomplete() {
+    let currentRow = 1; // מתחילים משורה 1 (כי 0 זה כותרות)
+    const maxTries = 6;
+    
   const countries = [
 "אפגניסטן","אלבניה","אלג'יריה","אנדורה","אנגולה","אנטיגואה וברבודה","ארגנטינה","ארמניה",
 "אוסטרליה","אוסטריה","אזרבייג'ן","בהאמה","בחריין","בנגלדש","ברבדוס","בלארוס","בלגיה",
@@ -360,10 +363,10 @@ function register() {
       div.innerText = c;
 
       div.onclick = () => {
-        input.value = c;
-        box.innerHTML = "";
-        alert("בחרת: " + c);
-      };
+  addGuessToTable(c);
+  input.value = "";
+  box.innerHTML = "";
+};
 
       box.appendChild(div);
     });
@@ -372,11 +375,39 @@ function register() {
   input.addEventListener("keydown", function(e) {
   if (e.key === "Enter") {
     let value = this.value;
-    alert("בחרת: " + value);
+
+    if (countries.includes(value)) {
+      addGuessToTable(value);
+      input.value = "";
+      box.innerHTML = "";
+    } else {
+      alert("מדינה לא קיימת");
+    }
   }
 });
+
 }
 
+function addGuessToTable(country) {
+  if (currentRow > maxTries) return;
+
+  let table = document.getElementById("game-table");
+  let row = table.rows[currentRow];
+
+  row.cells[0].innerText = country;
+  row.cells[1].innerText = "מ";
+  row.cells[2].innerText = "מ קמ״ר";
+  row.cells[3].innerText = "י";
+  row.cells[4].innerText = "ס";
+  row.cells[5].innerText = "UTC +n";
+
+  // צובע את כל השורה באפור
+  for (let i = 0; i < row.cells.length; i++) {
+    row.cells[i].style.background = "#ccc";
+  }
+
+  currentRow++;
+}
 
 window.onload = function() {
   setupAutocomplete();
