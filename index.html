@@ -401,12 +401,6 @@ function setupAutocomplete() {
 function addGuessToTable(country) {
   if (currentRow > maxTries) return;
 
-  // ❌ אם כבר ניחשו את המדינה
-  if (guessedCountries.includes(country)) {
-    alert("כבר ניחשת את המדינה הזאת!");
-    return;
-  }
-
   let table = document.getElementById("game-table");
   let row = table.rows[currentRow];
 
@@ -417,30 +411,15 @@ function addGuessToTable(country) {
   row.cells[4].innerText = "ס";
   row.cells[5].innerText = "UTC +n";
 
-  // צבע אפור
   for (let i = 0; i < row.cells.length; i++) {
     row.cells[i].style.background = "#ccc";
   }
 
-  guessedCountries.push(country);
   currentRow++;
-
-  // ניקוי והורדת מקלדת
-  let input = document.getElementById("guess");
-  input.value = "";
-  input.blur(); // 🔥 מוריד מקלדת במובייל
-
-  document.getElementById("suggestions").innerHTML = "";
-
-  // alert
-  alert("ניחשת: " + country);
-
-  // 🔥 אם נגמרו ניסיונות
-  if (currentRow > maxTries) {
-    input.disabled = true;
-    alert("נגמרו הניסיונות!");
-  }
+  
+  guessedCountries.push(country);
 }
+
 
 window.onload = function() {
   setupAutocomplete();
