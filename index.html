@@ -273,6 +273,8 @@
 let currentRow = 1;
 const maxTries = 6;
 
+let guessedCountries = [];
+
 function playAsGuest() {
   document.getElementById("start-screen").style.display = "none";
 }
@@ -360,7 +362,7 @@ function setupAutocomplete() {
 
     if (value === "") return;
 
-    let matches = countries.filter(c => c.startsWith(value));
+    let matches = countries.filter(c => c.startsWith(value) && !guessedCountries.includes(c));
 
     matches.forEach(c => {
       let div = document.createElement("div");
@@ -383,10 +385,11 @@ function setupAutocomplete() {
 
       let value = this.value;
 
-      if (countries.includes(value)) {
+      if (countries.includes(value) && !guessedCountries.includes(value)) {
         addGuessToTable(value);
         input.value = "";
         box.innerHTML = "";
+        input.blur();
       } else {
         alert("מדינה לא קיימת");
       }
@@ -412,6 +415,8 @@ function addGuessToTable(country) {
   }
 
   currentRow++;
+  
+  guessedCountries.push(country);
 }
 
 window.onload = function() {
