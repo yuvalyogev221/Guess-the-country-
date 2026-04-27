@@ -244,6 +244,36 @@
   transform: scale(1.2);
 }
   
+#share-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 10px;
+  padding: 12px 20px;
+
+  background: linear-gradient(135deg, #4CAF50, #66bb6a);
+  color: white;
+
+  border: none;
+  border-radius: 12px;
+
+  font-size: 16px;
+  cursor: pointer;
+
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  transition: 0.2s;
+}
+
+#share-btn:hover {
+  transform: scale(1.05);
+}
+
+.share-icon {
+  width: 18px;
+  height: 18px;
+}
+  
 </style>
 <body>
   <div id="start-screen" dir="rtl">
@@ -328,6 +358,12 @@
   </tr>
 </table>
     
+    <div class="container">
+  <button id="share-btn" onclick="openEndScreen()">
+  <img src="share.png" class="share-icon">
+  שתף
+</button>
+</div>
   </header>
   
   
@@ -338,6 +374,11 @@ let currentRow = 1;
 const maxTries = 6;
 
 let guessedCountries = [];
+
+let lastResult = {
+  title: "",
+  message: ""
+};
 
 function playAsGuest() {
   document.getElementById("start-screen").style.display = "none";
@@ -513,14 +554,26 @@ function addGuessToTable(country) {
 }
 
 function showWin() {
-  document.getElementById("end-title").innerText = "ניצחת! 🎉";
-  document.getElementById("end-message").innerText = "";
+  lastResult.title = "ניצחת! 🎉";
+  lastResult.message = "";
+
+  document.getElementById("end-title").innerText = lastResult.title;
+  document.getElementById("end-message").innerText = lastResult.message;
   document.getElementById("end-screen").style.display = "flex";
 }
 
 function showLose(correctCountry) {
-  document.getElementById("end-title").innerText = "הפסדת 😢";
-  document.getElementById("end-message").innerText = "המדינה הייתה " + correctCountry;
+  lastResult.title = "הפסדת 😢";
+  lastResult.message = "המדינה הייתה " + correctCountry;
+
+  document.getElementById("end-title").innerText = lastResult.title;
+  document.getElementById("end-message").innerText = lastResult.message;
+  document.getElementById("end-screen").style.display = "flex";
+}
+
+function openEndScreen() {
+  document.getElementById("end-title").innerText = lastResult.title;
+  document.getElementById("end-message").innerText = lastResult.message;
   document.getElementById("end-screen").style.display = "flex";
 }
 
