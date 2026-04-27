@@ -516,7 +516,7 @@ function setupAutocomplete() {
 function addGuessToTable(country) {
   if (currentRow > maxTries) return;
   
-  //Send to python the country name and get back from the python list of the variables of the country and list of colours and True/False
+  //Send to python the country name and get back from the python list of the variables of the country and list of colours (+ arrows of up/down) and True/False
 
   let table = document.getElementById("game-table");
   let row = table.rows[currentRow];
@@ -530,6 +530,7 @@ function addGuessToTable(country) {
   row.cells[5].innerText = "UTC +n";
 
   // here instead of paint the row cells only in gray, run on your list of colours and for each cell paint in the right collor. 
+  // In the list there is also arrows of up/down. 
   for (let i = 0; i < row.cells.length; i++) {
     row.cells[i].style.background = "#ccc";
   }
