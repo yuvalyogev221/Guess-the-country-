@@ -359,8 +359,8 @@
 </table>
     
     <div class="container">
-  <button id="share-btn" onclick="openEndScreen()">
-  <img src="share.png" class="share-icon">
+  <button id="share-btn" onclick="openEndScreen()" style="display: none;>
+  <img src="share.PNG" class="share-icon">
   שתף
 </button>
 </div>
@@ -535,7 +535,7 @@ function addGuessToTable(country) {
 
     //input.remove();       // 🔥 מוחק את השדה
     //box.innerHTML = "";   // מנקה הצעות
-
+    //document.getElementById("share-btn").style.display = "flex";
     //showWin()
     //}
   
@@ -546,6 +546,7 @@ function addGuessToTable(country) {
   input.remove();       // 🔥 מוחק את השדה
   box.innerHTML = "";   // מנקה הצעות
 
+  document.getElementById("share-btn").style.display = "flex";
   //ask python what is the real country
   let correctCountry = "XXX"
   showLose(correctCountry)
