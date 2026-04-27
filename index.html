@@ -237,19 +237,23 @@
 </div>
 
     <!-- מסך ניצחון/הפסד -->
-<div id="end-screen" dir="rtl" style="position: relative;">
-  <div class="start-box">
+<div id="end-screen" dir="rtl" style="display: none;">
+  <div class="start-box" style="position: relative;"> <!-- 🔥 חשוב! -->
+
     <button onclick="exitEndScreen()" style="
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: none;
-    color: black;
-    font-size: 18px;
-  ">✖</button>
-    
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: none;
+      border: none;
+      color: black;
+      font-size: 20px;
+      cursor: pointer;
+    ">✖</button>
+
     <h2 id="end-title"></h2>
     <p id="end-message"></p>
+
   </div>
 </div>
   
