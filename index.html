@@ -190,6 +190,22 @@
 #game-table td + td {
   border-right: 1px solid black;
 }
+
+#end-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}
   
 </style>
 <body>
@@ -217,6 +233,14 @@
       <button onclick="showLogin()">חזרה להתחברות</button>
     </div>
 
+  </div>
+</div>
+
+    <!-- מסך ניצחון/הפסד -->
+<div id="end-screen" dir="rtl">
+  <div class="start-box">
+    <h2 id="end-title"></h2>
+    <p id="end-message"></p>
   </div>
 </div>
   
@@ -267,6 +291,8 @@
 </table>
     
   </header>
+  
+  
   
 <script>
 
@@ -431,7 +457,7 @@ function addGuessToTable(country) {
     //input.remove();       // 🔥 מוחק את השדה
     //box.innerHTML = "";   // מנקה הצעות
 
-    //alert("הצלחת !");
+    //showWin()
     //}
   
   if (currentRow > maxTries) {
@@ -441,9 +467,21 @@ function addGuessToTable(country) {
   input.remove();       // 🔥 מוחק את השדה
   box.innerHTML = "";   // מנקה הצעות
 
-  alert("נגמרו הניסיונות!");
+  showLose()
 }
 
+}
+
+function showWin() {
+  document.getElementById("end-title").innerText = "ניצחת! 🎉";
+  document.getElementById("end-message").innerText = "";
+  document.getElementById("end-screen").style.display = "flex";
+}
+
+function showLose() {
+  document.getElementById("end-title").innerText = "הפסדת 😢";
+  document.getElementById("end-message").innerText = "המדינה הייתה אאא";
+  document.getElementById("end-screen").style.display = "flex";
 }
 
 
