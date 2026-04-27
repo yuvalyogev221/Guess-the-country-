@@ -207,29 +207,40 @@
   z-index: 999;
 }
 
+.start-box {
+  position: relative;
+}
+
 .close-btn {
   position: absolute;
   top: 10px;
-  left: 10px; /* כי זה RTL */
-  background: transparent;
-  border: none;
-  font-size: 18px;
-  color: #555;
+  right: 10px; /* 🔥 צד ימין */
+  background: transparent !important;
+  border: none !important;
+  font-size: 20px;
+  color: #777;
   cursor: pointer;
-  width: auto;
-  padding: 5px;
-  margin: 0;
-  transition: 0.2s;
-}
-
-.start-box .close-btn {
-  background: none !important;
-  color: #555 !important;
+  padding: 0 !important;
+  margin: 0 !important;
   width: auto !important;
+  line-height: 1;
 }
 
+/* שלא יקבל עיצוב של כפתור רגיל */
+.start-box button.close-btn {
+  all: unset;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  font-size: 20px;
+  color: #777;
+  cursor: pointer;
+}
+
+/* hover יפה */
 .close-btn:hover {
-  color: black;
+  color: #000;
   transform: scale(1.2);
 }
   
