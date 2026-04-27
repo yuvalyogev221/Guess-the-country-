@@ -603,6 +603,10 @@ function shareResult() {
   else if (lastResult.title === "הפסדת 😢") {
     text = "לצערי היום לא הצלחתי לנחש את המדינה"
   }
+  
+  text = `${text}
+רוצה לנסות גם?
+תלחץ על הקישור - `;
 
   if (navigator.share) {
     navigator.share({
