@@ -208,10 +208,10 @@
 }
 
 #close-btn {
-  position: absolute;
-  top: 20px;
-  right: 20px; /* 👈 צד ימין של המסך */
-
+  position: fixed;   /* 🔥 זה הסוד */
+  top: 15px;
+  right: 15px;
+  z-index: 1001;     /* מעל הכל */
   background: rgba(255,255,255,0.9);
   border: none;
   border-radius: 50%;
@@ -252,14 +252,12 @@
 
     <!-- מסך ניצחון/הפסד -->
 <div id="end-screen" dir="rtl" style="display: none;">
-
-  <button onclick="exitEndScreen()" id="close-btn">✖</button>
+  <button id="close-btn" onclick="exitEndScreen()">✖</button>
 
   <div class="start-box">
     <h2 id="end-title"></h2>
     <p id="end-message"></p>
   </div>
-
 </div>
   
   <header>
