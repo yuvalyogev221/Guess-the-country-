@@ -522,17 +522,21 @@ function addGuessToTable(country) {
   let row = table.rows[currentRow];
 
   //here You beed to run on your list of variables of the country and get it into the row cells. 
-  row.cells[0].innerText = country;
-  row.cells[1].innerText = "מ";
-  row.cells[2].innerText = "מ קמ״ר";
-  row.cells[3].innerText = "י";
-  row.cells[4].innerText = "ס";
-  row.cells[5].innerText = "UTC +n";
-
   // here instead of paint the row cells only in gray, run on your list of colours and for each cell paint in the right collor. 
   // In the list there is also arrows of up/down. 
+  
+  const colors = ["gray", "gray", "gray", "gray", "gray", "gray"];
+  const values = [country, "מ", "מ קמ״ר", "י", "ס", "UTC +n"];
+  
   for (let i = 0; i < row.cells.length; i++) {
-    row.cells[i].style.background = "#ccc";
+    let color = "#ccc"; //The ideal is gray. 
+    
+    if (colors[i] === "yellow") { color = "#e6d220"; }
+    else if (colors[i] === "green") { color = "#31f723"; }
+    else if (colors[i] === "↑") { values[i] += " ↑"; }
+    else if (colors[i] === "↓") { values[i] += " ↓"; }
+    row.cells[i].style.background = color;
+    row.cells[i].innerText = values[i];
   }
   
   guessedCountries.push(country);
