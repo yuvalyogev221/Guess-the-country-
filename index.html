@@ -343,7 +343,7 @@
     <th>שטח</th>
     <th>יבשת</th>
     <th>מטבע</th>
-    <th>אזור זמן</th>
+    <th>אזור זמן (UTC)</th>
   </tr>
 
   <!-- 6 ניסיונות -->
@@ -526,7 +526,7 @@ function addGuessToTable(country) {
   // In the list there is also arrows of up/down. 
   
   const colors = ["gray", "gray", "gray", "gray", "gray", "gray"];
-  const values = [country, "מ", "מ קמ״ר", "י", "ס", "UTC +n"];
+  const values = [country, "מ", "מ קמ״ר", "י", "ס", "n"];
   
   for (let i = 0; i < row.cells.length; i++) {
     let color = "#ccc"; //The ideal is gray. 
