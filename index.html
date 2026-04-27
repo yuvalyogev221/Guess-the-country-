@@ -309,6 +309,15 @@
     <button class="close-btn" onclick="exitEndScreen()">✖</button>
     <h2 id="end-title"></h2>
     <p id="end-message"></p>
+    
+    <!-- כפתור שיתוף -->
+    <div class="container">
+      <button id="share-btn-end" onclick="shareResult()">
+        <img src="share.png" class="share-icon">
+        שתף
+      </button>
+    </div>
+    
   </div>
 </div>
   
@@ -583,6 +592,19 @@ function exitEndScreen() {
   document.getElementById("end-screen").style.display = "none";
   }
 
+function shareResult() {
+  //let text = lastResult.title + "\n" + lastResult.message;
+
+  if (navigator.share) {
+    navigator.share({
+      title: "Guess the Country",
+      text: "ניסיתי לנחש מדינה!",
+      url: window.location.href
+    });
+  } else {
+    alert("שיתוף לא נתמך בדפדפן הזה");
+  }
+}
 
 window.onload = function() {
   setupAutocomplete();
