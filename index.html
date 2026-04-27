@@ -313,8 +313,8 @@
     <!-- כפתור שיתוף -->
     <div class="container">
       <button id="share-btn-end" onclick="shareResult()">
-        <img src="share.PNG" class="share-icon">
-        שתף
+שתף
+      <img src="share.PNG" class="share-icon">
       </button>
     </div>
     
@@ -533,8 +533,6 @@ function addGuessToTable(country) {
   for (let i = 0; i < row.cells.length; i++) {
     row.cells[i].style.background = "#ccc";
   }
-
-  currentRow++;
   
   guessedCountries.push(country);
   
@@ -548,6 +546,8 @@ function addGuessToTable(country) {
     //document.getElementById("share-btn").style.display = "flex";
     //showWin()
     //}
+  
+  currentRow++;
   
   if (currentRow > maxTries) {
   let input = document.getElementById("guess");
@@ -593,12 +593,21 @@ function exitEndScreen() {
   }
 
 function shareResult() {
-  //let text = lastResult.title + "\n" + lastResult.message;
+  let text = ""
+  
+  if (lastResult.title === "ניצחת! 🎉") {
+    text = "הצלחתי לנחש את המדינה!!
+    \nניחשתי בניסיון ה-" + currentRow
+  }
+  
+  else if (lastResult.title === "הפסדת 😢") {
+    text = "לצערי היום לא הצלחתי לנחש את המדינה"
+  }
 
   if (navigator.share) {
     navigator.share({
       title: "Guess the Country",
-      text: "ניסיתי לנחש מדינה!",
+      text: text,
       url: window.location.href
     });
   } else {
