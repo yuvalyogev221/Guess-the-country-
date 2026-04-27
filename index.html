@@ -239,6 +239,15 @@
     <!-- מסך ניצחון/הפסד -->
 <div id="end-screen" dir="rtl" style="display: none;">
   <div class="start-box">
+    <button onclick="exitEndScreen()" style="
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: none;
+    color: black;
+    font-size: 18px;
+  ">✖</button>
+    
     <h2 id="end-title"></h2>
     <p id="end-message"></p>
   </div>
@@ -467,7 +476,9 @@ function addGuessToTable(country) {
   input.remove();       // 🔥 מוחק את השדה
   box.innerHTML = "";   // מנקה הצעות
 
-  showLose()
+  //ask python what is the real country
+  let correctCountry = "XXX"
+  showLose(correctCountry)
 }
 
 }
@@ -478,11 +489,15 @@ function showWin() {
   document.getElementById("end-screen").style.display = "flex";
 }
 
-function showLose() {
+function showLose(correctCountry) {
   document.getElementById("end-title").innerText = "הפסדת 😢";
-  document.getElementById("end-message").innerText = "המדינה הייתה אאא";
+  document.getElementById("end-message").innerText = "המדינה הייתה " + correctCountry;
   document.getElementById("end-screen").style.display = "flex";
 }
+
+function exitEndScreen() {
+  document.getElementById("end-screen").style.display = "none";
+  }
 
 
 window.onload = function() {
