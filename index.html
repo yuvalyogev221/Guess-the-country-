@@ -207,19 +207,30 @@
   z-index: 999;
 }
 
-.start-box {
-  position: relative; /* 🔥 קריטי */
-}
-
 .close-btn {
   position: absolute;
   top: 10px;
-  right: 10px;
-  background: none;
+  left: 10px; /* כי זה RTL */
+  background: transparent;
   border: none;
-  font-size: 20px;
+  font-size: 18px;
+  color: #555;
   cursor: pointer;
+  width: auto;
+  padding: 5px;
+  margin: 0;
+  transition: 0.2s;
+}
+
+.start-box .close-btn {
+  background: none !important;
+  color: #555 !important;
+  width: auto !important;
+}
+
+.close-btn:hover {
   color: black;
+  transform: scale(1.2);
 }
   
 </style>
