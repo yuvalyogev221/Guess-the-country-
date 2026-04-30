@@ -383,6 +383,8 @@
 let currentRow = 1;
 const maxTries = 6;
 
+let country;
+
 let guessedCountries = [];
 
 let lastResult = {
@@ -466,6 +468,9 @@ function setupAutocomplete() {
 "איחוד האמירויות הערביות","בריטניה","ארצות הברית","אורוגוואי","אוזבקיסטן",
 "ונואטו","ונצואלה","וייטנאם","תימן","זמביה","זימבבואה","הוותיקן"
 ];
+
+  const randomCountry = countries[Math.floor(Math.random() * countries.length)];
+  country = randomCountry;
 
   let input = document.getElementById("guess");
   let box = document.getElementById("suggestions");
