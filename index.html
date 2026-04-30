@@ -520,10 +520,8 @@ function setupAutocomplete() {
 
 
 function addGuessToTable(country) {
-  console.log("clicked:", country);
   if (currentRow > maxTries) return;
 
-  console.log("sending request...");
   fetch("https://guess-the-country-o22k.onrender.com/guess", {
   method: "POST",
   headers: {
@@ -539,7 +537,6 @@ function addGuessToTable(country) {
   return res.json();
 })
 .then(data => {
-  console.log("got response:", data);
   const colors = data.colors;
   const values = [...data.country2];
 
@@ -619,7 +616,7 @@ function shareResult() {
   
   if (lastResult.title === "ניצחת! 🎉") {
     text = `הצלחתי לנחש את המדינה!!
-ניחשתי בניסיון ה-${currentRow}`;
+ניחשתי בניסיון ה-${currentRow-1}`;
   }
   
   else if (lastResult.title === "הפסדת 😢") {
