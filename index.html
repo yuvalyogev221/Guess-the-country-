@@ -471,6 +471,7 @@ function setupAutocomplete() {
 
   const randomCountry = countries[Math.floor(Math.random() * countries.length)];
   country = randomCountry;
+  window.target = randomCountry;
 
   let input = document.getElementById("guess");
   let box = document.getElementById("suggestions");
@@ -521,56 +522,65 @@ function setupAutocomplete() {
 function addGuessToTable(country) {
   if (currentRow > maxTries) return;
   
-  //Send to python the country name and get back from the python list of the variables of the country and list of colours (+ arrows of up/down) and True/False
+  fetch("https://guess-the-country-o22k.onrender.com/guess", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    country: country,
+    target: window.target
+  })
+})
+.then(res => {
+  if (!res.ok) throw new Error("Server error");
+  return res.json();
+})
+.then(data => {
+
+  const colors = data.colors;
+  const values = [...data.country1];
 
   let table = document.getElementById("game-table");
   let row = table.rows[currentRow];
 
-  //here You beed to run on your list of variables of the country and get it into the row cells. 
-  // here instead of paint the row cells only in gray, run on your list of colours and for each cell paint in the right collor. 
-  // In the list there is also arrows of up/down. 
-  
-  const colors = ["gray", "gray", "gray", "gray", "gray", "gray"];
-  const values = [country, "מ", "מ קמ״ר", "י", "ס", "n"];
-  
   for (let i = 0; i < row.cells.length; i++) {
-    let color = "#ccc"; //The ideal is gray. 
-    
-    if (colors[i] === "yellow") { color = "#e6d220"; }
-    else if (colors[i] === "green") { color = "#31f723"; }
-    else if (colors[i] === "↑") { values[i] += " ↑"; }
-    else if (colors[i] === "↓") { values[i] += " ↓"; }
+    let color = "#ccc";
+
+    if (colors[i] === "yellow") color = "#e6d220";
+    else if (colors[i] === "green") color = "#31f723";
+    else if (colors[i] === "↑") values[i] += " ↑";
+    else if (colors[i] === "↓") values[i] += " ↓";
+
     row.cells[i].style.background = color;
     row.cells[i].innerText = values[i];
   }
-  
+
   guessedCountries.push(country);
-  
-  //here instead of end the game only on the ninth attempt check before if he won the game. 
-  //if (... is True) {
-    //let input = document.getElementById("guess");
-    //let box = document.getElementById("suggestions");
 
-    //input.remove();       // 🔥 מוחק את השדה
-    //box.innerHTML = "";   // מנקה הצעות
-    //document.getElementById("share-btn").style.display = "flex";
-    //showWin()
-    //}
-  
+  // ✅ בדיקת ניצחון נכונה
+  if (colors.every(c => c === "green")) {
+    document.getElementById("guess").remove();
+    document.getElementById("suggestions").innerHTML = "";
+    document.getElementById("share-btn").style.display = "flex";
+    showWin();
+  }
+
   currentRow++;
-  
+
+  // ❌ הפסד
   if (currentRow > maxTries) {
-  let input = document.getElementById("guess");
-  let box = document.getElementById("suggestions");
+    document.getElementById("guess").remove();
+    document.getElementById("suggestions").innerHTML = "";
+    document.getElementById("share-btn").style.display = "flex";
 
-  input.remove();       // 🔥 מוחק את השדה
-  box.innerHTML = "";   // מנקה הצעות
+    showLose(window.target);
+  }
 
-  document.getElementById("share-btn").style.display = "flex";
-  //ask python what is the real country
-  let correctCountry = "XXX"
-  showLose(correctCountry)
-}
+})
+.catch(err => {
+  console.error("ERROR:", err);
+});
 
 }
 
