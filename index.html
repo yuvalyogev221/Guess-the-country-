@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Guess the Country</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+    body { 
+    background-color: rgba(233, 255, 219, 0.7);
+    }
+
+  .container { 
+  display: flex; 
+  flex-direction: column;   /* חשוב! מסדר אחד מתחת לשני */
+  align-items: center; 
+  }
+
+  .earth {
+  width: 80px;
+  margin-top: 10px;
+  }
+  
+  h1 {
+  margin: 10px 0;
+}
+  
+#start-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.4); /* שקיפות! */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}
+
+.start-box {
+  background: white;
+  padding: 30px 25px;
+  border-radius: 16px;
+  width: 85%;
+  max-width: 320px;
+  text-align: center;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.start-box h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+/* שדות קלט */
+.start-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+
+  border: 1px solid #ccc;
+  border-radius: 8px;
+
+  font-size: 14px;
+  text-align: right;
+
+  box-sizing: border-box; /* 🔥 זה הקסם */
+}
+
+/* כפתורים */
+.start-box button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+
+  background: #4CAF50;
+  color: white;
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.start-box button:hover {
+  background: #43a047;
+  transform: scale(1.03);
+}
+  
+#guess {
+  width: 90%;
+  max-width: 400px;
+  padding: 15px;
+  font-size: 20px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  text-align: right;
+}
+
+#suggestions {
+  width: 300px;
+  text-align: right;
+}
+
+#suggestions div {
+  padding: 8px;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+#suggestions div:hover {
+  background: #eee;
+}
+
+#game-table {
+  width: 95%;
+  max-width: 700px;
+  margin: 20px auto;
+
+  border-collapse: separate;
+  border-spacing: 0 10px;
+
+  text-align: center;
+  table-layout: fixed;
+  direction: rtl;
+}
+
+/* 🔥 כותרות */
+#game-table th {
+  background: #f9f9f9;
+  font-weight: bold;
+  color: black;
+
+  padding: 10px;
+  height: 55px;
+
+  border: 1px solid black;
+}
+
+/* 🔥 כותרות - כן יורדות שורה במקום להיחתך */
+#game-table th {
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* 🔥 שורות רגילות */
+#game-table tbody tr {
+  background: transparent;
+}
+
+/* 🔥 תא ראשון ואחרון יוצרים את ה"מלבן" */
+#game-table td {
+  padding: 10px;
+  height: 55px;
+
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+
+  font-size: 14px;
+  vertical-align: middle;
+
+  background: transparent; /* ✅ שקוף באמת */
+
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* צד ימין של השורה */
+#game-table td:first-child {
+  border-right: 1px solid black;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* צד שמאל של השורה */
+#game-table td:last-child {
+  border-left: 1px solid black;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+/* קווים בין תאים */
+#game-table td + td {
+  border-right: 1px solid black;
+}
+
+#end-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}
+
+.start-box {
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px; /* 🔥 צד ימין */
+  background: transparent !important;
+  border: none !important;
+  font-size: 20px;
+  color: #777;
+  cursor: pointer;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: auto !important;
+  line-height: 1;
+}
+
+/* שלא יקבל עיצוב של כפתור רגיל */
+.start-box button.close-btn {
+  all: unset;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  font-size: 20px;
+  color: #777;
+  cursor: pointer;
+}
+
+/* hover יפה */
+.close-btn:hover {
+  color: #000;
+  transform: scale(1.2);
+}
+  
+#share-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 10px;
+  padding: 12px 20px;
+
+  background: linear-gradient(135deg, #4CAF50, #66bb6a);
+  color: white;
+
+  border: none;
+  border-radius: 12px;
+
+  font-size: 16px;
+  cursor: pointer;
+
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  transition: 0.2s;
+}
+
+#share-btn:hover {
+  transform: scale(1.05);
+}
+
+.share-icon {
+  width: 18px;
+  height: 18px;
+}
+  
+</style>
+<body>
+  <div id="start-screen" dir="rtl">
+  <div class="start-box">
+
+    <!-- מסך התחברות -->
+    <div id="login-screen">
+      <input type="email" id="email" placeholder="אימייל">
+      <input type="password" id="password" placeholder="סיסמה">
+
+      <button onclick="login()">התחברות</button>
+      <button onclick="showRegister()">הירשם/י</button>
+      <button onclick="playAsGuest()">שחק/י כאורח/ת</button>
+    </div>
+
+    <!-- מסך הרשמה -->
+    <div id="register-screen" style="display: none;">
+      <h2>הרשמה</h2>
+      <input type="email" id="reg-email" placeholder="אימייל">
+      <input type="password" id="reg-password" placeholder="סיסמה">
+      <input type="password" id="reg-password2" placeholder="אימות סיסמה">
+
+      <button onclick="register()">צור חשבון</button>
+      <button onclick="showLogin()">חזרה להתחברות</button>
+    </div>
+
+  </div>
+</div>
+
+    <!-- מסך ניצחון/הפסד -->
+<div id="end-screen" dir="rtl" style="display: none;">
+  <div class="start-box">
+    <button class="close-btn" onclick="exitEndScreen()">✖</button>
+    <h2 id="end-title"></h2>
+    <p id="end-message"></p>
+    
+    <!-- כפתור שיתוף -->
+    <div class="container">
+      <button id="share-btn-end" onclick="shareResult()">
+שתף
+      <img src="share.PNG" class="share-icon">
+      </button>
+    </div>
+    
+  </div>
+</div>
+  
+  <header>
+    <div class="container">
+      <h1>GUESS THE COUNTRY</h1>
+      <img src="wrld.png" class="earth">
+    </div>
+    
+    <div class="container" dir="rtl">
+      <h3 onclick="showRules()" style="cursor: pointer;">החוקים📖</h3>
+    </div>
+    
+    <div class="container" dir="rtl">
+      <input id="guess" placeholder="נחש מדינה">
+      <div id="suggestions"></div>
+    </div>
+    
+    <table id="game-table">
+  <tr>
+    <th>מדינה</th>
+    <th>אוכלוסיה</th>
+    <th>שטח</th>
+    <th>יבשת</th>
+    <th>מטבע</th>
+    <th>אזור זמן UTC</th>
+  </tr>
+
+  <!-- 6 ניסיונות -->
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+</table>
+  
+  <div class="container">
+    <button id="share-btn" onclick="openEndScreen()" style="display: none;">
+    <img src="share.PNG" class="share-icon">
+  שתף
+    </button>
+  </div>
+
+  </header>
+  
+  
+  
+<script>
+
+let currentRow = 1;
+const maxTries = 6;
+
+let country;
+
+let guessedCountries = [];
+
+let lastResult = {
+  title: "",
+  message: ""
+};
+
+function playAsGuest() {
+  document.getElementById("start-screen").style.display = "none";
+}
+
+function showRegister() {
+  document.getElementById("login-screen").style.display = "none";
+  document.getElementById("register-screen").style.display = "block";
+}
+
+function showLogin() {
+  document.getElementById("register-screen").style.display = "none";
+  document.getElementById("login-screen").style.display = "block";
+}
+
+function login() {
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+
+  if (email === "" || password === "") {
+    alert("תמלא אימייל וסיסמה");
+    return;
+  }
+}
+
+function register() {
+  let email = document.getElementById("reg-email").value;
+  let pass1 = document.getElementById("reg-password").value;
+  let pass2 = document.getElementById("reg-password2").value;
+
+  if (email === "" || pass1 === "" || pass2 === "") {
+    alert("תמלא את כל השדות");
+    return;
+  }
+
+  if (pass1 !== pass2) {
+    alert("הסיסמאות לא תואמות");
+    return;
+  }
+
+  alert("נרשמת בהצלחה 🎉");
+  document.getElementById("start-screen").style.display = "none";
+}
+
+function showRules() {
+  alert("החוקים: ...");
+}
+
+function setupAutocomplete() {
+
+  const countries = [
+"אפגניסטן","אלבניה","אלג'יריה","אנדורה","אנגולה","אנטיגואה וברבודה","ארגנטינה","ארמניה",
+"אוסטרליה","אוסטריה","אזרבייג'ן","בהאמה","בחריין","בנגלדש","ברבדוס","בלארוס","בלגיה",
+"בליז","בנין","בהוטן","בוליביה","בוסניה והרצגובינה","בוטסואנה","ברזיל","ברוניי","בולגריה",
+"בורקינה פאסו","בורונדי","כף ורדה","קמבודיה","קמרון","קנדה","הרפובליקה המרכז-אפריקאית",
+"צ'אד","צ'ילה","סין","קולומביה","קומורו","קונגו (הרפובליקה)","קונגו (הרפובליקה הדמוקרטית)",
+"קוסטה ריקה","קרואטיה","קובה","קפריסין","צ'כיה","דנמרק","ג'יבוטי","דומיניקה",
+"הרפובליקה הדומיניקנית","אקוודור","מצרים","אל סלבדור","גינאה המשוונית","אריתריאה",
+"אסטוניה","אסוואטיני","אתיופיה","פיג'י","פינלנד","צרפת","גבון","גמביה","גאורגיה",
+"גרמניה","גאנה","יוון","גרנדה","גואטמלה","גינאה","גינאה ביסאו","גיאנה","האיטי",
+"הונדורס","הונגריה","איסלנד","הודו","אינדונזיה","איראן","עיראק","אירלנד","ישראל",
+"איטליה","חוף השנהב","ג'מייקה","יפן","ירדן","קזחסטן","קניה","קיריבטי","כווית",
+"קירגיזסטן","לאוס","לטביה","לבנון","לסוטו","ליבריה","לוב","ליכטנשטיין","ליטא",
+"לוקסמבורג","מדגסקר","מלאווי","מלזיה","מלדיבים","מאלי","מלטה","איי מרשל","מאוריטניה",
+"מאוריציוס","מקסיקו","מיקרונזיה","מולדובה","מונקו","מונגוליה","מונטנגרו","מרוקו",
+"מוזמביק","מיאנמר","נמיביה","נאורו","נפאל","נדרלנד","ניו זילנד","ניקרגואה","ניז'ר",
+"ניגריה","צפון קוריאה","צפון מקדוניה","נורווגיה","עומאן","פקיסטן","פלאו","פנמה",
+"פפואה גינאה החדשה","פרגוואי","פרו","הפיליפינים","פולין","פורטוגל","קטאר","רומניה",
+"רוסיה","רואנדה","סנט קיטס ונוויס","סנט לוסיה","סנט וינסנט והגרנדינים","סמואה",
+"סן מרינו","סאו טומה ופרינסיפה","ערב הסעודית","סנגל","סרביה","סיישל","סיירה לאון",
+"סינגפור","סלובקיה","סלובניה","איי שלמה","סומליה","דרום אפריקה","דרום קוריאה",
+"דרום סודן","ספרד","סרי לנקה","סודן","סורינאם","שוודיה","שווייץ","סוריה",
+"טג'יקיסטן","טנזניה","תאילנד","טימור-לסטה","טוגו","טונגה","טרינידד וטובגו",
+"תוניסיה","טורקיה","טורקמניסטן","טובאלו","אוגנדה","אוקראינה",
+"איחוד האמירויות הערביות","בריטניה","ארצות הברית","אורוגוואי","אוזבקיסטן",
+"ונואטו","ונצואלה","וייטנאם","תימן","זמביה","זימבבואה","הוותיקן"
+];
+
+  const randomCountry = countries[Math.floor(Math.random() * countries.length)];
+  country = randomCountry;
+
+  let input = document.getElementById("guess");
+  let box = document.getElementById("suggestions");
+
+  // הצעות
+  input.addEventListener("input", function() {
+    let value = this.value;
+    box.innerHTML = "";
+
+    if (value === "") return;
+
+    let matches = countries.filter(c => c.startsWith(value) && !guessedCountries.includes(c));
+
+    matches.forEach(c => {
+      let div = document.createElement("div");
+      div.innerText = c;
+
+      div.onclick = () => {
+        addGuessToTable(c);
+        input.value = "";
+        box.innerHTML = "";
+      };
+
+      box.appendChild(div);
+    });
+  });
+
+  // ENTER
+  input.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+
+      let value = this.value;
+
+      if (countries.includes(value) && !guessedCountries.includes(value)) {
+        addGuessToTable(value);
+        input.value = "";
+        box.innerHTML = "";
+        input.blur();
+      } else {
+        alert("מדינה לא קיימת");
+      }
+    }
+  });
+}
+
+
+function addGuessToTable(country) {
+  if (currentRow > maxTries) return;
+  
+  //Send to python the country name and get back from the python list of the variables of the country and list of colours (+ arrows of up/down) and True/False
+
+  let table = document.getElementById("game-table");
+  let row = table.rows[currentRow];
+
+  //here You beed to run on your list of variables of the country and get it into the row cells. 
+  // here instead of paint the row cells only in gray, run on your list of colours and for each cell paint in the right collor. 
+  // In the list there is also arrows of up/down. 
+  
+  const colors = ["gray", "gray", "gray", "gray", "gray", "gray"];
+  const values = [country, "מ", "מ קמ״ר", "י", "ס", "n"];
+  
+  for (let i = 0; i < row.cells.length; i++) {
+    let color = "#ccc"; //The ideal is gray. 
+    
+    if (colors[i] === "yellow") { color = "#e6d220"; }
+    else if (colors[i] === "green") { color = "#31f723"; }
+    else if (colors[i] === "↑") { values[i] += " ↑"; }
+    else if (colors[i] === "↓") { values[i] += " ↓"; }
+    row.cells[i].style.background = color;
+    row.cells[i].innerText = values[i];
+  }
+  
+  guessedCountries.push(country);
+  
+  //here instead of end the game only on the ninth attempt check before if he won the game. 
+  //if (... is True) {
+    //let input = document.getElementById("guess");
+    //let box = document.getElementById("suggestions");
+
+    //input.remove();       // 🔥 מוחק את השדה
+    //box.innerHTML = "";   // מנקה הצעות
+    //document.getElementById("share-btn").style.display = "flex";
+    //showWin()
+    //}
+  
+  currentRow++;
+  
+  if (currentRow > maxTries) {
+  let input = document.getElementById("guess");
+  let box = document.getElementById("suggestions");
+
+  input.remove();       // 🔥 מוחק את השדה
+  box.innerHTML = "";   // מנקה הצעות
+
+  document.getElementById("share-btn").style.display = "flex";
+  //ask python what is the real country
+  let correctCountry = "XXX"
+  showLose(correctCountry)
+}
+
+}
+
+function showWin() {
+  lastResult.title = "ניצחת! 🎉";
+  lastResult.message = "";
+
+  document.getElementById("end-title").innerText = lastResult.title;
+  document.getElementById("end-message").innerText = lastResult.message;
+  document.getElementById("end-screen").style.display = "flex";
+}
+
+function showLose(correctCountry) {
+  lastResult.title = "הפסדת 😢";
+  lastResult.message = "המדינה הייתה " + correctCountry;
+
+  document.getElementById("end-title").innerText = lastResult.title;
+  document.getElementById("end-message").innerText = lastResult.message;
+  document.getElementById("end-screen").style.display = "flex";
+}
+
+function openEndScreen() {
+  document.getElementById("end-title").innerText = lastResult.title;
+  document.getElementById("end-message").innerText = lastResult.message;
+  document.getElementById("end-screen").style.display = "flex";
+}
+
+function exitEndScreen() {
+  document.getElementById("end-screen").style.display = "none";
+  }
+
+function shareResult() {
+  let text = ""
+  
+  if (lastResult.title === "ניצחת! 🎉") {
+    text = `הצלחתי לנחש את המדינה!!
+ניחשתי בניסיון ה-${currentRow}`;
+  }
+  
+  else if (lastResult.title === "הפסדת 😢") {
+    text = "לצערי היום לא הצלחתי לנחש את המדינה"
+  }
+  
+  text = `${text}
+🌍🌎🌏
+רוצה לנסות גם?
+תלחץ על הקישור - `;
+
+  if (navigator.share) {
+    navigator.share({
+      title: "Guess the Country",
+      text: text,
+      url: window.location.href
+    });
+  } else {
+    alert("שיתוף לא נתמך בדפדפן הזה");
+  }
+}
+
+window.onload = function() {
+  setupAutocomplete();
+};
+
+</script>
+  
+</body>
+</html>
