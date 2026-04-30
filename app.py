@@ -16,8 +16,8 @@ def guess():
     # Get from JS :
     data = request.get_json()
 
-    country1 = data["country"]   # guessed
-    country2 = data["target"]    # correct
+    country1 = data["target"] # correct_country
+    country2 = data["country"] # guessed_country
 
     results_country1, results_country2, colors = Comparison(country1, country2)
     print(results_country1, results_country2, colors)
