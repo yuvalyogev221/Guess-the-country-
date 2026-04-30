@@ -541,7 +541,7 @@ function addGuessToTable(country) {
 .then(data => {
   console.log("got response:", data);
   const colors = data.colors;
-  const values = [...data.country1];
+  const values = [...data.country2];
 
   let table = document.getElementById("game-table");
   let row = table.rows[currentRow];
