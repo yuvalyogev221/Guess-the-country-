@@ -7,7 +7,10 @@
 <style>
     body { 
     background-color: rgba(233, 255, 219, 0.7);
+    font-family: Tahoma, sans-serif;
     }
+
+  
 
   .container { 
   display: flex; 
@@ -380,6 +383,8 @@
   
 <script>
 
+let isLoading = false;
+  
 let currentRow = 1;
 const maxTries = 6;
 
@@ -446,6 +451,8 @@ function showRules() {
 
 ↑ הערך של הניחוש שלך קטן יותר מהמדינה הנכונה  
 ↓ הערך של הניחוש שלך גדול יותר מהמדינה הנכונה  
+
+UTC = 0 - Greenwich Mean Time
 
 רמזים:
 • גבולות – צהוב אם יש גבול משותף  
@@ -542,6 +549,13 @@ function setupAutocomplete() {
 function addGuessToTable(country) {
   if (currentRow > maxTries) return;
 
+  if (isLoading) return;
+  isLoading = true;
+  
+  let input = document.getElementById("guess");
+  input.placeholder = "טוען...";
+  input.disabled = true;
+
   fetch("https://guess-the-country-o22k.onrender.com/guess", {
   method: "POST",
   headers: {
@@ -557,6 +571,12 @@ function addGuessToTable(country) {
   return res.json();
 })
 .then(data => {
+  isLoading = false;
+  
+  let input = document.getElementById("guess");
+  input.placeholder = "נחש מדינה";
+  input.disabled = false;
+  
   const colors = data.colors;
   const values = [...data.country2];
 
@@ -599,6 +619,12 @@ function addGuessToTable(country) {
 })
 .catch(err => {
   console.error("ERROR:", err);
+
+  isLoading = false;
+
+  let input = document.getElementById("guess");
+  input.placeholder = "נחש מדינה";
+  input.disabled = false;
 });
 
 }
