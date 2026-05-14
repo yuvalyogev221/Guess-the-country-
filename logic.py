@@ -21,6 +21,8 @@ def send_Results(name):
 
             send_results[1] = f"{int(send_results[1]):,}"
 
+            print(send_results[2], type(send_results[2]))
+            
             send_results[2] = send_results[2].split('.0')
             if send_results[2][-1] != "":
                 send_results[2] = f"{float(send_results[2][0])}"
