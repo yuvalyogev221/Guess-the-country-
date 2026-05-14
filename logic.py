@@ -1,7 +1,10 @@
 import DB
 
 def to_int(num_str):
-    return int(num_str.replace(",", ""))
+    if '.' in num_str:
+        return float(num_str.replace(",", ""))
+    else:
+        return int(num_str.replace(",", ""))
 
 def send_Results(name):
     with DB.Database_Manager("GuessTheCountry_DB.db") as db:
