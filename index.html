@@ -533,6 +533,9 @@ function setupAutocomplete() {
 
       let value = this.value;
 
+      console.log("VALUE:", [...value]);
+      console.log("COUNTRY:", [...countries[countries.length - 1]]);
+      
       if (countries.includes(value) && !guessedCountries.includes(value)) {
         addGuessToTable(value);
         input.value = "";
