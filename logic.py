@@ -33,8 +33,6 @@ def send_Results(name):
         except Exception as e:
             print(f"Error querying database: {e}")
 
-            import traceback
-            traceback.print_exc()
 
 def get_Neighbors(name):
     with DB.Database_Manager("GuessTheCountry_DB.db") as db:
