@@ -18,7 +18,11 @@ def send_Results(name):
 
             send_results[1] = f"{int(send_results[1]):,}"
 
-            send_results[2] = f"{int(send_results[2].split('.0')[0]):,}"
+            send_results[2] = send_results[2].split('.0')
+            if send_results[2][-1] != "":
+                send_results[2] = f"{float(send_results[2][0])}"
+            else:
+                send_results[2] = f"{int(send_results[2][0]):,}"
 
             return send_results
 
