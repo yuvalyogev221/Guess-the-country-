@@ -397,6 +397,8 @@ let lastResult = {
   message: ""
 };
 
+let shareGrid = [];
+
 function playAsGuest() {
   document.getElementById("start-screen").style.display = "none";
 }
@@ -545,7 +547,25 @@ function setupAutocomplete() {
   });
 }
 
+function generateShareGrid() {
+  let text = "";
 
+  for (let row of shareGrid) {
+    for (let c of row) {
+
+      if (c === "green") text += "🟩";
+      else if (c === "yellow") text += "🟨";
+      else if (c === "gray") text += "⬜";
+      else if (c === "↑") text += "⬆️";
+      else if (c === "↓") text += "⬇️";
+    }
+
+    text += "\n";
+  }
+
+  return text;
+}
+  
 function addGuessToTable(country) {
   if (currentRow > maxTries) return;
 
@@ -596,6 +616,7 @@ function addGuessToTable(country) {
   }
 
   guessedCountries.push(country);
+  shareGrid.push([...colors]);
 
   // ✅ בדיקת ניצחון נכונה
   if (colors.every(c => c === "green")) {
@@ -658,29 +679,43 @@ function exitEndScreen() {
   }
 
 function shareResult() {
-  let text = ""
-  
+
+  let text = "";
+
   if (lastResult.title === "ניצחת! 🎉") {
-    text = `הצלחתי לנחש את המדינה!!
-ניחשתי בניסיון ה-${currentRow-1}`;
+
+    text = `🌍 Guess The Country
+
+${generateShareGrid()}
+
+הצלחתי לנחש את המדינה ב-${currentRow - 1} ניסיונות! 🎉`;
+
   }
-  
+
   else if (lastResult.title === "הפסדת 😢") {
-    text = "לצערי היום לא הצלחתי לנחש את המדינה"
+
+    text = `🌍 Guess The Country
+
+${generateShareGrid()}
+
+לא הצלחתי לנחש את המדינה 😢`;
   }
-  
-  text = `${text}
-🌍🌎🌏
-רוצה לנסות גם?
-לחץ/י על הקישור - `;
+
+  text += `
+
+🌎 רוצה לנסות גם?
+`;
 
   if (navigator.share) {
+
     navigator.share({
       title: "Guess the Country",
       text: text,
       url: window.location.href
     });
+
   } else {
+
     alert("שיתוף לא נתמך בדפדפן הזה");
   }
 }
