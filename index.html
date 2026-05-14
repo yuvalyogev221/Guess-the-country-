@@ -516,7 +516,7 @@ function setupAutocomplete() {
       let div = document.createElement("div");
       div.innerText = c;
 
-      div.onclick = () => {
+      div.onmousedown = () => {
         addGuessToTable(c);
         input.value = "";
         box.innerHTML = "";
