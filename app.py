@@ -37,7 +37,8 @@ def guess():
     return jsonify({
         "colors": colors,
         "country1": results_country1, 
-        "country2": results_country2
+        "country2": results_country2,
+        "target": country1
     })
 
 
