@@ -498,9 +498,9 @@ function setupAutocomplete() {
 "ונואטו","ונצואלה","וייטנאם","תימן","זמביה","זימבבואה","הוותיקן"
 ];
 
-  const randomCountry = countries[Math.floor(Math.random() * countries.length)];
-  country = randomCountry;
-  window.target = randomCountry;
+  //const randomCountry = countries[Math.floor(Math.random() * countries.length)];
+  //country = randomCountry;
+  //window.target = randomCountry;
 
   let input = document.getElementById("guess");
   let box = document.getElementById("suggestions");
@@ -582,8 +582,7 @@ function addGuessToTable(country) {
     "Content-Type": "application/json"
   },
   body: JSON.stringify({
-    country: country,
-    target: window.target
+    country: country
   })
 })
 .then(res => {
@@ -596,7 +595,8 @@ function addGuessToTable(country) {
   let input = document.getElementById("guess");
   input.placeholder = "נחש מדינה";
   input.disabled = false;
-  
+
+  window.target = data.target;
   const colors = data.colors;
   const values = [...data.country2];
 
@@ -608,8 +608,8 @@ function addGuessToTable(country) {
 
     if (colors[i] === "yellow") color = "#e6d220";
     else if (colors[i] === "green") color = "#31f723";
-    else if (colors[i] === "↑") values[i] += " 🔼";
-    else if (colors[i] === "↓") values[i] += " 🔽";
+    else if (colors[i] === "↑") values[i] += " ⬆️";
+    else if (colors[i] === "↓") values[i] += " ⬇️";
 
     row.cells[i].style.background = color;
     row.cells[i].innerText = values[i];
