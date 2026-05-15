@@ -6,6 +6,23 @@ def to_int(num_str):
     else:
         return int(num_str.replace(",", ""))
 
+def Get_Name(n):
+    with DB.Database_Manager("GuessTheCountry_DB.db") as db:
+        try:
+            query = """
+                    SELECT Name FROM Countries
+                    WHERE Id = ?;
+                    """
+            result = db.execute_query(query, (n,))
+            result = db.fetchall()[0][0]
+
+            return result
+
+
+        except Exception as e:
+            print(f"Error querying database: {e}")
+
+
 def send_Results(name):
     with DB.Database_Manager("GuessTheCountry_DB.db") as db:
         try:
