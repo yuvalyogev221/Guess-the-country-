@@ -684,27 +684,27 @@ function shareResult() {
 
   if (lastResult.title === "ניצחת! 🎉") {
 
-    text = `🌍 Guess The Country
+    text = `הצלחתי לנחש את המדינה!!
+הצלחתי לנחש את המדינה בניסיון ה--${currentRow - 1}
+🌍🌎🌏
 
-${generateShareGrid()}
-
-הצלחתי לנחש את המדינה ב-${currentRow - 1} ניסיונות! 🎉`;
-
+${generateShareGrid()}`;
+    
   }
 
   else if (lastResult.title === "הפסדת 😢") {
 
-    text = `🌍 Guess The Country
-
+    text = `לצערי היום לא הצלחתי לנחש את המדינה
+    🌍🌎🌏
+    
 ${generateShareGrid()}
-
-לא הצלחתי לנחש את המדינה 😢`;
+`;
   }
 
   text += `
-
-🌎 רוצה לנסות גם?
-`;
+  
+רוצה לנסות גם?
+לחץ/י על הקישור - `;
 
   if (navigator.share) {
 
