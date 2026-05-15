@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from logic import Comparison
+from logic import Comparison, Get_Name
 import os
 from flask_cors import CORS
 import datetime
