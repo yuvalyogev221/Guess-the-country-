@@ -16,7 +16,17 @@ def guess():
     # Get from JS :
     data = request.get_json()
 
-    country1 = data["target"] # correct_country
+    start_date = datetime.date(2026, 5, 15)
+
+    today = datetime.date.today()
+    
+    diff = today - start_date
+    
+    diff = (diff.days % 194) + 1
+
+    country1 = Get_Name(diff) # correct_country
+    
+    #country1 = data["target"] # correct_country
     country2 = data["country"] # guessed_country
 
     results_country1, results_country2, colors = Comparison(country1, country2)
