@@ -107,7 +107,7 @@ def Comparison(country1, country2):
         if results_country1[3] == results_country2[3]: colors.append('green')
         else: colors.append('gray')
 
-        # Currency
+        # Language
         if results_country1[4] == results_country2[4]: colors.append('green')
         else: colors.append('gray')
 
